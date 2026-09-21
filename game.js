@@ -220,4 +220,41 @@ function update(time = 0) {
 
   if (dropCounter > dropInterval) {
     dropPiece();
- 
+  }
+
+  drawBoard();
+  requestAnimationFrame(update);
+}
+
+document.addEventListener("keydown", event => {
+  if (!isPlaying || !currentPiece) {
+    return;
+  }
+
+  if (event.key === "ArrowLeft") {
+    movePiece(-1);
+  }
+
+  if (event.key === "ArrowRight") {
+    movePiece(1);
+  }
+
+  if (event.key === "ArrowDown") {
+    dropPiece();
+  }
+
+  if (event.key === "ArrowUp") {
+    rotateCurrentPiece();
+  }
+
+  if (event.code === "Space") {
+    event.preventDefault();
+    hardDrop();
+  }
+
+  drawBoard();
+});
+
+startButton.addEventListener("click", startGame);
+
+drawBoard();
